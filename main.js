@@ -60,7 +60,7 @@ const serial = async (
 
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO registroLuminosidade (luminosidade) VALUES (?)',
+                'INSERT INTO registroLuminosidade (fkSensor, luminosidade) VALUES (1,?)',
                 [sensorLuminosidade]
             );
             console.log("valores inseridos no banco: ", sensorLuminosidade);
