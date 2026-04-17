@@ -11,21 +11,17 @@
     <h1>Gráficos</h1>
     <div style="display: flex;">
         <div style="width: 50%;">
-            <canvas id="sensorAnalogico"></canvas>
-        </div>
-        <div style="width: 50%;">
-            <canvas id="sensorDigital"></canvas>
+            <canvas id="sensorLuminosidade"></canvas>
         </div>
     </div>
 
     <script>
-        var sensorAnalogico = new Chart(document.getElementById('sensorAnalogico').getContext('2d'), {
+        var sensorLuminosidade = new Chart(document.getElementById('sensorLuminosidade').getContext('2d'), {
             type: 'line',
             data: {
                 datasets: [{
                     label: 'Luminosidade',
-                    borderColor: '#63B1BC',
-                    backgroundColor: '#ED145B'
+                    backgroundColor: '#206f4A'
                 }]
             },
             options: {
@@ -78,8 +74,7 @@
         }
 
         setInterval(() => {
-            obterDados(sensorAnalogico, 'analogico');
-            obterDados(sensorDigital, 'digital');
+            obterDados(sensorLuminosidade, 'Luminosidade');
         }, 1000);
 
     </script>
