@@ -49,7 +49,7 @@ const serial = async (
     // processa os dados recebidos do Arduino
     arduino.pipe(new serialport.ReadlineParser({ delimiter: '\r\n' })).on('data', async (data) => {
         console.log(data);
-        
+
         const sensorLuminosidade = parseFloat(data);
 
         // armazena os valores dos sensores nos arrays correspondentes
@@ -58,10 +58,14 @@ const serial = async (
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
 
+            // sorteia um sensor entre 1 e 3 (sensores ativos)
+            var sensoresAtivos = [1, 2, 3]
+            var indiceAleatorio = Math.floor(Math.random() * sensoresAtivos.length + 1)
+            var sensorEscolhido = sensoresAtivos[indiceAleatorio]
             // este insert irá inserir os dados na tabela "medida"
             await poolBancoDados.execute(
-                'INSERT INTO registroLuminosidade (fkSensor, luminosidade) VALUES (1,?)',
-                [sensorLuminosidade]
+                'INSERT INTO registroLuminosidade (fkSensor, luminosidade) VALUES (?, ?)',
+                [sensorEscolhido, sensorLuminosidade]
             );
             console.log("valores inseridos no banco: ", sensorLuminosidade);
 
